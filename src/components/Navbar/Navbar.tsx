@@ -28,7 +28,6 @@ export function NavBar({ tab, setTab }: Props) {
           Settings
         </a>
       </div>
-      <ThemePicker />
     </div>
   );
 }
