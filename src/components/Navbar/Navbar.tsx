@@ -1,5 +1,3 @@
-import { ThemePicker } from "./ThemePicker";
-
 type Props = {
   tab: "search" | "settings";
   setTab: React.Dispatch<React.SetStateAction<"search" | "settings">>;
