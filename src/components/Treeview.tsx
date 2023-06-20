@@ -1,4 +1,5 @@
 import { TreeNode, TreeProps } from "../../types";
+import { IFolder } from "./icons/IFolder";
 
 export function TreeView({
   title,
@@ -9,7 +10,12 @@ export function TreeView({
 }) {
   return (
     <details className="collapse cursor-pointer text-base-content" open>
-      <summary className="p-0.5">{title}</summary>
+      <summary className="p-0.5">
+        <div className="flex gap-1">
+          <IFolder />
+          <span>{title}</span>
+        </div>
+      </summary>
       {!!children && <div className="pl-2">{children}</div>}
     </details>
   );

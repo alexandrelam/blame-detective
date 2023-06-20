@@ -1,18 +1,12 @@
 import { useSearch } from "../../hooks/useSearch";
-import { PageLayout } from "../Layout/PageLayout";
+import { PageLayout } from "../layouts/PageLayout";
 import { Tree } from "../Treeview";
 import { buildTree } from "../../utils/tree";
 
 export function SearchPage() {
   const { makeSearch, isLoading, modifiedFiles } = useSearch();
 
-  const paths = [
-    "root/folder1/file1",
-    "root/folder1/file2",
-    "root/folder2/file3",
-    "root/folder2/folder3/file4",
-  ];
-
+  const paths = modifiedFiles.map((file) => file.filename);
   const tree = buildTree(paths);
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { PageLayout } from "../Layout/PageLayout";
-import { ThemePicker } from "../Navbar/ThemePicker";
+import { PageLayout } from "../layouts/PageLayout";
+import { ThemePicker } from "../navbar/ThemePicker";
 
 export function SettingsPage() {
   const [owner, setOwner] = useState("");
