@@ -1,5 +1,5 @@
 import { ModifiedFile } from "@prisma/client";
-import { GithubCommitResponse } from "../types";
+import { GithubCommitResponse } from "../../types";
 
 export function getDatesFromRange(start_date: Date, end_date: Date): Date[] {
   const dates: Date[] = [];
