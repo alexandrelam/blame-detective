@@ -1,6 +1,28 @@
 import { PageLayout } from "../Layout/PageLayout";
 
 export function SearchPage() {
+  async function createModifiedFile() {
+    await fetch("http://localhost:5175/files", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        author: "test",
+        html_url: "zer",
+        sha: "zer",
+        path: "/test.txt",
+        date: new Date().toISOString(),
+      }),
+    });
+  }
+
+  async function getFiles() {
+    const res = await fetch("http://localhost:5175/files");
+    const data = await res.json();
+    console.log(data);
+  }
+
   return (
     <PageLayout title="Search">
       <div className="flex gap-2 h-full">
@@ -18,7 +40,11 @@ export function SearchPage() {
               Search
             </button>
           </form>
-          <div className="bg-red-100 flex-grow">content</div>
+          <div className="bg-red-100 flex-grow">
+            content
+            <button onClick={createModifiedFile}>create</button>
+            <button onClick={getFiles}>fetch</button>
+          </div>
         </div>
       </div>
     </PageLayout>
