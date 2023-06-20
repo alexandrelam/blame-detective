@@ -27,7 +27,7 @@ export function ThemePicker() {
       <label htmlFor="themeSelect">Select a theme:</label>
       <select
         id="themeSelect"
-        className="px-2 py-1.5 rounded border"
+        className="input input-bordered"
         value={selectedTheme}
         onChange={handleThemeChange}
       >
