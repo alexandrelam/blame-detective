@@ -12,7 +12,7 @@ export function SearchPage() {
   return (
     <PageLayout title="Search">
       <div className="flex gap-2 h-full">
-        <div className="w-64">
+        <div className="w-96">
           {isLoading ? <span>loading</span> : <Tree tree={tree} />}
         </div>
         <div className="flex flex-col gap-2 flex-grow">
