@@ -35,3 +35,12 @@ export type ModifiedFile = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type TreeNode = {
+  name: string;
+  children?: TreeNode[];
+};
+
+export type TreeProps = {
+  tree: TreeNode;
+};

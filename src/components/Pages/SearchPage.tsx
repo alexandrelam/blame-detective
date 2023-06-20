@@ -1,6 +1,7 @@
 import { useSearch } from "../../hooks/useSearch";
 import { PageLayout } from "../Layout/PageLayout";
-import { Tree, buildTree } from "../Treeview";
+import { Tree } from "../Treeview";
+import { buildTree } from "../../utils/tree";
 
 export function SearchPage() {
   const { makeSearch, isLoading, modifiedFiles } = useSearch();
