@@ -39,6 +39,7 @@ export function SearchPage() {
               placeholder="Search /file/path..."
               className="input input-bordered flex-grow join-item"
               onChange={refineSearch}
+              disabled={modifiedFiles.length === 0}
             />
             <input
               id="start_date"
@@ -56,7 +57,7 @@ export function SearchPage() {
               Search
             </button>
           </form>
-          <div className="flex-grow">
+          <div className="flex-grow text-xs leading-none!">
             <ReactDiffViewer
               oldValue={addedLines}
               newValue={removedLines}
