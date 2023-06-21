@@ -20,8 +20,11 @@ export function SearchPage() {
   const paths = files.map((file) => file.filename);
   const tree = buildTree(paths);
 
+  const owner = localStorage.getItem("owner");
+  const repo = localStorage.getItem("repo");
+
   return (
-    <PageLayout title="Search">
+    <PageLayout title="Search" subtitle={`${owner}/${repo}`}>
       <div className="flex gap-2 h-full">
         <div className="w-96 border-r">
           {isLoading ? (
