@@ -3,10 +3,17 @@ import { PageLayout } from "../layouts/PageLayout";
 import { Tree } from "../Treeview";
 import { buildTree } from "../../utils/tree";
 import { useState } from "react";
+import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
+import { extractGitDiffLines } from "../../utils/extractGitDiffLines";
 
 export function SearchPage() {
   const { makeSearch, isLoading, modifiedFiles } = useSearch();
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
+
+  const { addedLines, removedLines } = extractGitDiffLines(
+    modifiedFiles.find((file) => file.filename === selectedFilename)?.patch ||
+      ""
+  );
 
   const paths = modifiedFiles.map((file) => file.filename);
   const tree = buildTree(paths);
@@ -47,10 +54,12 @@ export function SearchPage() {
             </button>
           </form>
           <div className="flex-grow">
-            {
-              modifiedFiles.find((file) => file.filename === selectedFilename)
-                ?.patch
-            }
+            <ReactDiffViewer
+              oldValue={addedLines}
+              newValue={removedLines}
+              splitView={false}
+              compareMethod={DiffMethod.WORDS}
+            />
           </div>
         </div>
       </div>
