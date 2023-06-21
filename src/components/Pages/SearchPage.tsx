@@ -2,9 +2,11 @@ import { useSearch } from "../../hooks/useSearch";
 import { PageLayout } from "../layouts/PageLayout";
 import { Tree } from "../Treeview";
 import { buildTree } from "../../utils/tree";
+import { useState } from "react";
 
 export function SearchPage() {
   const { makeSearch, isLoading, modifiedFiles } = useSearch();
+  const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
 
   const paths = modifiedFiles.map((file) => file.filename);
   const tree = buildTree(paths);
@@ -12,8 +14,12 @@ export function SearchPage() {
   return (
     <PageLayout title="Search">
       <div className="flex gap-2 h-full">
-        <div className="w-96">
-          {isLoading ? <span>loading</span> : <Tree tree={tree} />}
+        <div className="w-96 border-r">
+          {isLoading ? (
+            <span>loading</span>
+          ) : (
+            <Tree tree={tree} setSelectedFilename={setSelectedFilename} />
+          )}
         </div>
         <div className="flex flex-col gap-2 flex-grow">
           <form className="flex items-center join" onSubmit={makeSearch}>
@@ -40,7 +46,12 @@ export function SearchPage() {
               Search
             </button>
           </form>
-          <div className="bg-red-100 flex-grow">content</div>
+          <div className="flex-grow">
+            {
+              modifiedFiles.find((file) => file.filename === selectedFilename)
+                ?.patch
+            }
+          </div>
         </div>
       </div>
     </PageLayout>

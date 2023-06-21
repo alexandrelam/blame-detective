@@ -38,9 +38,11 @@ export type ModifiedFile = {
 
 export type TreeNode = {
   name: string;
+  fullPath: string;
   children?: TreeNode[];
 };
 
 export type TreeProps = {
   tree: TreeNode;
+  setSelectedFilename: React.Dispatch<React.SetStateAction<string | null>>;
 };

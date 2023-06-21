@@ -1,7 +1,7 @@
 import { TreeNode } from "../../types";
 
 export function buildTree(paths: string[]): TreeNode {
-  const root: TreeNode = { name: "" };
+  const root: TreeNode = { name: "", fullPath: "" };
 
   for (const path of paths) {
     const segments = path.split("/").filter((segment) => segment !== "");
@@ -13,7 +13,7 @@ export function buildTree(paths: string[]): TreeNode {
       );
 
       if (!childNode) {
-        childNode = { name: segment };
+        childNode = { name: segment, fullPath: path };
         currentNode.children = currentNode.children || [];
         currentNode.children.push(childNode);
       }
