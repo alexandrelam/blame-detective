@@ -20,11 +20,8 @@ export function SearchPage() {
   const paths = files.map((file) => file.filename);
   const tree = buildTree(paths);
 
-  const owner = localStorage.getItem("owner");
-  const repo = localStorage.getItem("repo");
-
   return (
-    <PageLayout title="Search" subtitle={`${owner}/${repo}`}>
+    <PageLayout title="Search">
       <div className="flex gap-2 h-full">
         <div className="w-96 border-r">
           {isLoading ? (
@@ -48,12 +45,14 @@ export function SearchPage() {
               id="start_date"
               name="start_date"
               type="date"
+              required
               className="input input-bordered join-item"
             />
             <input
               id="end_date"
               name="end_date"
               type="date"
+              required
               className="input input-bordered join-item"
             />
             <button className="btn btn-primary join-item" type="submit">

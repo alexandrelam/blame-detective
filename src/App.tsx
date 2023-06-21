@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { GlobalLayout } from "./components/layouts/GlobalLayout";
 import { NavBar } from "./components/navbar/Navbar";
 import { SettingsPage } from "./components/pages/SettingsPage";
 import { SearchPage } from "./components/pages/SearchPage";
 
+type TabContextType = {
+  tab: "search" | "settings";
+  setTab: React.Dispatch<React.SetStateAction<"search" | "settings">>;
+};
+
+export const TabContext = createContext<TabContextType | null>(null);
+
 function App() {
   const [tab, setTab] = useState<"search" | "settings">("search");
   return (
     <GlobalLayout>
-      <NavBar tab={tab} setTab={setTab} />
-      {tab === "search" ? <SearchPage /> : <SettingsPage />}
+      <TabContext.Provider
+        value={{
+          tab: tab,
+          setTab: setTab,
+        }}
+      >
+        <NavBar tab={tab} setTab={setTab} />
+        {tab === "search" ? <SearchPage /> : <SettingsPage />}
+      </TabContext.Provider>
     </GlobalLayout>
   );
 }
