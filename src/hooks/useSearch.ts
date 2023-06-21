@@ -3,6 +3,7 @@ import { ModifiedFile } from "../../types";
 
 export function useSearch() {
   const [modifiedFiles, setModifiedFiles] = useState<ModifiedFile[]>([]);
+  const [searchedFiles, setSearchedFiles] = useState<ModifiedFile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function makeSearch(e: React.FormEvent<HTMLFormElement>) {
@@ -45,5 +46,14 @@ export function useSearch() {
     setIsLoading(false);
   }
 
-  return { modifiedFiles, isLoading, makeSearch };
+  function refineSearch(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    setSearchedFiles(
+      modifiedFiles.filter((file) =>
+        file.filename.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  }
+
+  return { modifiedFiles, isLoading, makeSearch, searchedFiles, refineSearch };
 }

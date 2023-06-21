@@ -7,7 +7,8 @@ import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import { extractGitDiffLines } from "../../utils/extractGitDiffLines";
 
 export function SearchPage() {
-  const { makeSearch, isLoading, modifiedFiles } = useSearch();
+  const { makeSearch, isLoading, modifiedFiles, searchedFiles, refineSearch } =
+    useSearch();
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
 
   const { addedLines, removedLines } = extractGitDiffLines(
@@ -15,7 +16,8 @@ export function SearchPage() {
       ""
   );
 
-  const paths = modifiedFiles.map((file) => file.filename);
+  const files = searchedFiles.length ? searchedFiles : modifiedFiles;
+  const paths = files.map((file) => file.filename);
   const tree = buildTree(paths);
 
   return (
@@ -36,6 +38,7 @@ export function SearchPage() {
               type="text"
               placeholder="Search /file/path..."
               className="input input-bordered flex-grow join-item"
+              onChange={refineSearch}
             />
             <input
               id="start_date"
