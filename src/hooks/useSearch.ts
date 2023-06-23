@@ -48,11 +48,8 @@ export function useSearch() {
 
   function refineSearch(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
-    setSearchedFiles(
-      modifiedFiles.filter((file) =>
-        file.filename.toLowerCase().includes(value.toLowerCase())
-      )
-    );
+    const regex = new RegExp(value, "i"); // 'i' flag for case-insensitive matching
+    setSearchedFiles(modifiedFiles.filter((file) => regex.test(file.filename)));
   }
 
   return { modifiedFiles, isLoading, makeSearch, searchedFiles, refineSearch };

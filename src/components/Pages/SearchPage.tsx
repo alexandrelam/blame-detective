@@ -39,7 +39,7 @@ export function SearchPage() {
               id="filepath"
               name="filepath"
               type="text"
-              placeholder="Search /file/path..."
+              placeholder="/^regex\/path$/i"
               className="input input-bordered flex-grow join-item"
               onChange={refineSearch}
               disabled={modifiedFiles.length === 0}
