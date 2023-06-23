@@ -27,9 +27,7 @@ export function SearchPage() {
     <PageLayout title="Search">
       <div className="flex gap-2 h-full">
         <div className="w-96 border-r">
-          {isLoading ? (
-            <span>loading</span>
-          ) : (
+          {!isLoading && (
             <Tree tree={tree} setSelectedFilename={setSelectedFilename} />
           )}
         </div>
@@ -63,7 +61,19 @@ export function SearchPage() {
             </button>
           </form>
           <div>
-            {!!selectedFile && (
+            {isLoading && (
+              <div className="flex flex-col items-center mt-24">
+                <img
+                  src="/src/assets/sponge-bob-looking.gif"
+                  alt="loading gif"
+                  className="m-auto"
+                />
+                <h2 className="text-2xl mt-4 text-secondary font-bold">
+                  Loading, Bob is fetching data...
+                </h2>
+              </div>
+            )}
+            {!!selectedFile && !isLoading && (
               <div className="p-2 rounded-xl bg-secondary/20 flex justify-between items-center mb-2">
                 <div className="flex items-center">
                   <img
