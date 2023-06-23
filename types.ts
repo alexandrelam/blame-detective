@@ -44,5 +44,6 @@ export type TreeNode = {
 
 export type TreeProps = {
   tree: TreeNode;
+  selectedFilename: string | null;
   setSelectedFilename: React.Dispatch<React.SetStateAction<string | null>>;
 };

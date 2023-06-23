@@ -23,15 +23,21 @@ export function TreeView({
 
 function TreeNodeComponent({
   node,
+  selectedFilename,
   setSelectedFilename,
 }: {
   node: TreeNode;
+  selectedFilename: string | null;
   setSelectedFilename: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
   if (!node.children) {
     return (
       <button
-        className="text-secondary"
+        className={`${
+          selectedFilename === node.fullPath
+            ? "text-primary font-medium"
+            : "text-secondary"
+        }`}
         onClick={() => setSelectedFilename(node.fullPath)}
       >
         {node.name}
@@ -46,6 +52,7 @@ function TreeNodeComponent({
           <TreeNodeComponent
             key={child.name}
             node={child}
+            selectedFilename={selectedFilename}
             setSelectedFilename={setSelectedFilename}
           />
         ))}
@@ -54,13 +61,18 @@ function TreeNodeComponent({
   );
 }
 
-export function Tree({ tree, setSelectedFilename }: TreeProps) {
+export function Tree({
+  tree,
+  selectedFilename,
+  setSelectedFilename,
+}: TreeProps) {
   return (
     <ul>
       {tree.children?.map((child) => (
         <TreeNodeComponent
           key={child.name}
           node={child}
+          selectedFilename={selectedFilename}
           setSelectedFilename={setSelectedFilename}
         />
       ))}

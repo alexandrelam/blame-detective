@@ -28,7 +28,11 @@ export function SearchPage() {
       <div className="flex gap-2 h-full">
         <div className="w-96 border-r">
           {!isLoading && (
-            <Tree tree={tree} setSelectedFilename={setSelectedFilename} />
+            <Tree
+              tree={tree}
+              selectedFilename={selectedFilename}
+              setSelectedFilename={setSelectedFilename}
+            />
           )}
         </div>
         <div className="flex flex-col gap-2 flex-grow">
