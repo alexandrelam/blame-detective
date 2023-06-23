@@ -11,9 +11,12 @@ export function SearchPage() {
     useSearch();
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
 
+  const selectedFile = modifiedFiles.find(
+    (file) => file.filename === selectedFilename
+  );
+
   const { addedLines, removedLines } = extractGitDiffLines(
-    modifiedFiles.find((file) => file.filename === selectedFilename)?.patch ||
-      ""
+    selectedFile?.patch || ""
   );
 
   const files = searchedFiles.length ? searchedFiles : modifiedFiles;
@@ -59,13 +62,41 @@ export function SearchPage() {
               Search
             </button>
           </form>
-          <div className="flex-grow text-xs leading-none!">
-            <ReactDiffViewer
-              oldValue={addedLines}
-              newValue={removedLines}
-              splitView={false}
-              compareMethod={DiffMethod.WORDS}
-            />
+          <div>
+            {!!selectedFile && (
+              <div className="p-2 rounded-xl bg-secondary/20 flex justify-between items-center mb-2">
+                <div className="flex items-center">
+                  <img
+                    src={selectedFile.author_avatar_url}
+                    alt="author profile image"
+                    className="w-6 h-6 rounded-full inline-block mr-2"
+                  />
+                  <a
+                    className="link-neutral text-sm"
+                    href={selectedFile.author_html_url}
+                  >
+                    {selectedFile.author_login}
+                  </a>
+                </div>
+                <div>
+                  <a
+                    className="link text-sm text-neutral"
+                    target="_blank"
+                    href={selectedFile.html_url}
+                  >
+                    {selectedFile.sha}
+                  </a>
+                </div>
+              </div>
+            )}
+            <div className="flex-grow text-xs leading-none! rounded-xl overflow-hidden">
+              <ReactDiffViewer
+                oldValue={addedLines}
+                newValue={removedLines}
+                splitView={false}
+                compareMethod={DiffMethod.WORDS}
+              />
+            </div>
           </div>
         </div>
       </div>

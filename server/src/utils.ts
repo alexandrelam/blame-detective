@@ -60,9 +60,9 @@ export async function fetchModifiedFiles(
         date: new Date(date),
         sha: commitData.sha,
         html_url: commitData.html_url,
-        author_login: commitData.author.login,
-        author_avatar_url: commitData.author.avatar_url,
-        author_html_url: commitData.author.html_url,
+        author_login: commitData.author?.login,
+        author_avatar_url: commitData.author?.avatar_url,
+        author_html_url: commitData.author?.html_url,
       };
     });
 

@@ -20,9 +20,9 @@ export type GithubCommitResponse = {
 
 export type ModifiedFile = {
   id: number;
-  author_login: string;
-  author_avatar_url: string;
-  author_html_url: string;
+  author_login?: string;
+  author_avatar_url?: string;
+  author_html_url?: string;
   date: Date;
   filename: string;
   html_url: string;
