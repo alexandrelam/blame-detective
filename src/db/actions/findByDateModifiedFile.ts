@@ -1,7 +1,11 @@
 import { ModifiedFile } from "../../../types";
 import { DB_NAME, Stores } from "../useIndexedDB";
 
-export function findByDateModifiedFile(date: Date): Promise<ModifiedFile[]> {
+export function findByDateModifiedFile(
+  date: Date,
+  repo: string,
+  owner: string
+): Promise<ModifiedFile[]> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, 1);
 
@@ -17,14 +21,28 @@ export function findByDateModifiedFile(date: Date): Promise<ModifiedFile[]> {
       const index = objectStore.index("date");
 
       const range = IDBKeyRange.only(date);
-      const getRequest = index.getAll(range);
 
-      getRequest.onsuccess = () => {
-        const retrievedData: ModifiedFile[] = getRequest.result;
-        resolve(retrievedData);
+      const retrievedData: ModifiedFile[] = [];
+
+      const cursorRequest = index.openCursor(range);
+
+      cursorRequest.onsuccess = (event) => {
+        const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result;
+
+        if (cursor) {
+          const file = cursor.value as ModifiedFile;
+
+          if (file.owner === owner && file.repo === repo) {
+            retrievedData.push(file);
+          }
+
+          cursor.continue();
+        } else {
+          resolve(retrievedData);
+        }
       };
 
-      getRequest.onerror = () => {
+      cursorRequest.onerror = () => {
         reject(new Error("Failed to retrieve data from the database"));
       };
     };

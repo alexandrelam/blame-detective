@@ -23,24 +23,26 @@ export function useSearch() {
       e.currentTarget.elements.namedItem("end_date") as HTMLInputElement
     ).value;
     const token = localStorage.getItem("githubToken");
+    const owner = localStorage.getItem("owner");
+    const repo = localStorage.getItem("repo");
 
-    if (!start_date || !end_date) {
+    if (!start_date || !end_date || !owner || !repo) {
       console.log("missing fields");
-      console.log(start_date, end_date);
+      console.log(start_date, end_date, owner, repo);
       return;
     }
 
     const dates = getDatesFromRange(new Date(start_date), new Date(end_date));
     for (const date of dates) {
-      const entries = await findByDateModifiedFile(date);
+      const entries = await findByDateModifiedFile(date, owner, repo);
 
       if (entries.length >= 1) {
         console.log("fetch db");
       } else {
         console.log("fetch api");
         const modifiedFiles = await fetchModifiedFiles(
-          "doctolib",
-          "doctolib",
+          owner,
+          repo,
           date.toISOString(),
           token?.toString() || ""
         );

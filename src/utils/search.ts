@@ -50,6 +50,8 @@ export async function fetchModifiedFiles(
       "id" | "createdAt" | "updatedAt"
     >[] = commitData.files.map((file) => {
       return {
+        owner,
+        repo,
         filename: file.filename,
         status: file.status,
         additions: file.additions,
