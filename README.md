@@ -77,7 +77,9 @@
 
 ## About The Project
 
-<img src="public/cover.png" alt="cover">
+<video>
+    <source src="public/cover.webm" type="video/webm">
+</video>
 
 Blame Detective is a highly efficient and user-friendly application designed to streamline the process of bug tracking and debugging in software development projects. By leveraging its powerful features, Blame Detective empowers developers to identify and resolve bugs quickly and effectively, saving valuable time and resources.
 
