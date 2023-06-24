@@ -94,12 +94,14 @@ export function SearchPage() {
               </div>
             )}
             <div className="flex-grow text-xs leading-none! rounded-xl overflow-hidden">
-              <ReactDiffViewer
-                oldValue={removedLines}
-                newValue={addedLines}
-                splitView={false}
-                compareMethod={DiffMethod.WORDS}
-              />
+              {!isLoading && !!selectedFile && (
+                <ReactDiffViewer
+                  oldValue={removedLines}
+                  newValue={addedLines}
+                  splitView={false}
+                  compareMethod={DiffMethod.WORDS}
+                />
+              )}
             </div>
           </div>
         </div>
