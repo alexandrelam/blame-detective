@@ -15,7 +15,7 @@ export function ThemePicker() {
     document.documentElement.setAttribute("data-theme", selectedTheme);
   }, [selectedTheme]);
 
-  const handleThemeChange = (event: any) => {
+  const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const theme = event.target.value;
     setSelectedTheme(theme);
     document.documentElement.setAttribute("data-theme", theme);
