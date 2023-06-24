@@ -8,6 +8,9 @@ export function ThemePicker() {
     if (savedTheme) {
       setSelectedTheme(savedTheme);
       document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      setSelectedTheme("cupcake");
+      document.documentElement.setAttribute("data-theme", "cupcake");
     }
   }, []);
 
