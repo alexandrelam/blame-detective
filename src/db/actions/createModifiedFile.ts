@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { ModifiedFile } from "../../../types";
 import { DB_NAME, Stores } from "../useIndexedDB";
 
@@ -17,7 +18,8 @@ export function createModifiedFile(
       const transaction = db.transaction(Stores.ModifiedFile, "readwrite");
       const objectStore = transaction.objectStore(Stores.ModifiedFile);
 
-      const addRequest = objectStore.add(data);
+      const id = uuidv4();
+      const addRequest = objectStore.add({ id, ...data });
 
       addRequest.onsuccess = () => {
         resolve();

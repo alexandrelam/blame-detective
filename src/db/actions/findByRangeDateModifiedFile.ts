@@ -12,8 +12,8 @@ export function findByRangeDateModifiedFile(
       reject(new Error("Failed to open database"));
     };
 
-    request.onsuccess = () => {
-      const db = request.result;
+    request.onsuccess = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
 
       const transaction = db.transaction(Stores.ModifiedFile, "readonly");
       const objectStore = transaction.objectStore(Stores.ModifiedFile);

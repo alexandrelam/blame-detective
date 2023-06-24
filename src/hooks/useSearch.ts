@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { ModifiedFile } from "../../types";
+import { fetchModifiedFiles, getDatesFromRange } from "../utils/search";
+import { findByDateModifiedFile } from "../db/actions/findByDateModifiedFile";
+import { createModifiedFile } from "../db/actions/createModifiedFile";
+import { findByRangeDateModifiedFile } from "../db/actions/findByRangeDateModifiedFile";
 
 export function useSearch() {
   const [modifiedFiles, setModifiedFiles] = useState<ModifiedFile[]>([]);
   const [searchedFiles, setSearchedFiles] = useState<ModifiedFile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   async function makeSearch(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
+    setIsError(false);
 
-    const filepath = (
-      e.currentTarget.elements.namedItem("filepath") as HTMLInputElement
-    ).value;
     const start_date = (
       e.currentTarget.elements.namedItem("start_date") as HTMLInputElement
     ).value;
@@ -27,22 +30,38 @@ export function useSearch() {
       return;
     }
 
-    const params = new URLSearchParams();
-    params.append("filepath", filepath);
-    params.append("start_date", start_date);
-    params.append("end_date", end_date);
-    if (token) params.append("token", token);
+    const dates = getDatesFromRange(new Date(start_date), new Date(end_date));
+    for (const date of dates) {
+      const entries = await findByDateModifiedFile(date);
 
-    const response = await fetch(
-      `http://localhost:5175/files?${params.toString()}`
-    );
+      if (entries.length >= 1) {
+        console.log("fetch db");
+      } else {
+        console.log("fetch api");
+        const modifiedFiles = await fetchModifiedFiles(
+          "doctolib",
+          "doctolib",
+          date.toISOString(),
+          token?.toString() || ""
+        );
 
-    if (response.status === 200) {
-      const json = await response.json();
-      setModifiedFiles(json);
-      console.log(json);
+        if (!modifiedFiles) {
+          setIsError(true);
+          return;
+        }
+
+        for (const file of modifiedFiles) {
+          await createModifiedFile(file);
+        }
+      }
     }
 
+    const files = await findByRangeDateModifiedFile(
+      new Date(start_date),
+      new Date(end_date)
+    );
+
+    setModifiedFiles(files);
     setIsLoading(false);
   }
 
@@ -52,5 +71,12 @@ export function useSearch() {
     setSearchedFiles(modifiedFiles.filter((file) => regex.test(file.filename)));
   }
 
-  return { modifiedFiles, isLoading, makeSearch, searchedFiles, refineSearch };
+  return {
+    modifiedFiles,
+    isLoading,
+    isError,
+    makeSearch,
+    searchedFiles,
+    refineSearch,
+  };
 }
