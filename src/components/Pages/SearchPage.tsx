@@ -36,7 +36,7 @@ export function SearchPage() {
             />
           )}
         </div>
-        <div className="flex flex-col gap-2 flex-grow h-full-custom overflow-y-scroll">
+        <div className="flex flex-col gap-2 flex-1 h-full-custom overflow-y-scroll">
           <SearchForm makeSearch={makeSearch} modifiedFiles={modifiedFiles} />
           <div>
             {isLoading && <BobLoader />}
