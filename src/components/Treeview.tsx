@@ -1,5 +1,9 @@
+import React, { useState } from "react";
 import { TreeNode, TreeProps } from "../types";
-import { IFolder } from "./icons/IFolder";
+import { IOpenFolder } from "./icons/IOpenFolder";
+import { ICloseFolder } from "./icons/ICloseFolder";
+import { IChevronDown } from "./icons/IChevronDown";
+import { IChevronRight } from "./icons/IChevronRight";
 
 export function TreeView({
   title,
@@ -8,15 +12,36 @@ export function TreeView({
   title: string;
   children?: React.ReactNode;
 }) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleToggle = (event: any) => {
+    event.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <details className="collapse cursor-pointer text-base-content" open>
-      <summary className="p-0.5">
-        <div className="flex gap-1">
-          <IFolder />
+    <details
+      className="relative collapse cursor-pointer text-base-content"
+      open={isOpen}
+    >
+      <summary className="p-0.5" onClick={handleToggle}>
+        <div className="flex items-center gap-1">
+          {isOpen ? (
+            <>
+              <IChevronDown />
+              <IOpenFolder />
+            </>
+          ) : (
+            <>
+              <IChevronRight />
+              <ICloseFolder />
+            </>
+          )}
           <span>{title}</span>
         </div>
       </summary>
-      {!!children && <div className="pl-2">{children}</div>}
+      <span className="w-0.5 h-full bg-neutral-content absolute left-1.5 top-7"></span>
+      {!!children && <div className="pl-3">{children}</div>}
     </details>
   );
 }
