@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { TreeNode, TreeProps } from "../types";
 import { IOpenFolder } from "./icons/IOpenFolder";
 import { ICloseFolder } from "./icons/ICloseFolder";
@@ -14,7 +14,7 @@ export function TreeView({
 }) {
   const [isOpen, setIsOpen] = useState(true);
 
-  const handleToggle = (event: any) => {
+  const handleToggle = (event: SyntheticEvent) => {
     event.preventDefault();
     setIsOpen(!isOpen);
   };
