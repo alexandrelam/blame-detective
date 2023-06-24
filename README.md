@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/alexandrelam/blame-detective">
-    <img src="public/detective.png" alt="Logo" width="80" height="80">
+    <img src="public/detective.png" alt="Logo" width="120" height="120">
   </a>
 
 <h3 align="center">B<i>lame</i> Detective</h3>
