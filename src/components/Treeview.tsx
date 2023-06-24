@@ -58,7 +58,7 @@ function TreeNodeComponent({
   if (!node.children) {
     return (
       <button
-        className={`block ${
+        className={`block pl-1 ${
           selectedFilename === node.fullPath
             ? "text-primary font-medium"
             : "text-secondary"
