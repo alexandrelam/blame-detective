@@ -8,17 +8,17 @@ type Props = {
 export function NavBar({ tab, setTab }: Props) {
   return (
     <div className="py-6 border-b flex justify-between items-center">
-      <div className="flex gap-2 items-center">
+      <div
+        className="flex gap-2 cursor-pointer items-center"
+        onClick={() => setTab("search")}
+      >
         <img
           src="/src/assets/detective.png"
           alt="moving detective microsft emoji"
           className="w-12 h-12"
         />
         <div>
-          <h1
-            className="font-bold text-2xl text-primary cursor-pointer"
-            onClick={() => setTab("search")}
-          >
+          <h1 className="font-bold text-2xl text-primary">
             B<span className="italic text-secondary-focus font-serif">lam</span>
             e Detective
           </h1>
