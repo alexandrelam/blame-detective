@@ -29,7 +29,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/alexandrelam/githunt">
+  <a href="https://github.com/alexandrelam/blame-detective">
     <img src="src/assets/detective.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -38,12 +38,12 @@
   <p align="center">
     Empowering Developers to Track and Expose Code Alterations! 🕵️
     <br />
-    <a href="https://github.com/alexandrelam/githunt"><strong>Explore the docs </strong></a>
+    <a href="https://github.com/alexandrelam/blame-detective"><strong>Explore the docs </strong></a>
     <br />
     <br />
-    <a href="https://github.com/alexandrelam/githunt/issues">Report Bug</a>
+    <a href="https://github.com/alexandrelam/blame-detective/issues">Report Bug</a>
     ·
-    <a href="https://github.com/alexandrelam/githunt/issues">Request Feature</a>
+    <a href="https://github.com/alexandrelam/blame-detective/issues">Request Feature</a>
   </p>
 </div>
 
@@ -187,7 +187,7 @@ Refine your bug tracking efforts by excluding irrelevant files or narrowing down
 - [ ] Feature 3
   - [ ] Nested Feature
 
-See the [open issues](https://github.com/alexandrelam/githunt/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/alexandrelam/blame-detective/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -220,7 +220,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Project Link: [https://github.com/alexandrelam/githunt](https://github.com/alexandrelam/githunt)
+Project Link: [https://github.com/alexandrelam/blame-detective](https://github.com/alexandrelam/blame-detective)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -228,23 +228,23 @@ Project Link: [https://github.com/alexandrelam/githunt](https://github.com/alexa
 
 ## Acknowledgments
 
-- [me](https://github.com/alexandrelam/githunt)
+- [me](https://github.com/alexandrelam/blame-detective)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/alexandrelam/githunt.svg?style=for-the-badge
-[contributors-url]: https://github.com/alexandrelam/githunt/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/alexandrelam/githunt.svg?style=for-the-badge
-[forks-url]: https://github.com/alexandrelam/githunt/network/members
-[stars-shield]: https://img.shields.io/github/stars/alexandrelam/githunt.svg?style=for-the-badge
-[stars-url]: https://github.com/alexandrelam/githunt/stargazers
-[issues-shield]: https://img.shields.io/github/issues/alexandrelam/githunt.svg?style=for-the-badge
-[issues-url]: https://github.com/alexandrelam/githunt/issues
-[license-shield]: https://img.shields.io/github/license/alexandrelam/githunt.svg?style=for-the-badge
-[license-url]: https://github.com/alexandrelam/githunt/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/alexandrelam/blame-detective.svg?style=for-the-badge
+[contributors-url]: https://github.com/alexandrelam/blame-detective/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/alexandrelam/blame-detective.svg?style=for-the-badge
+[forks-url]: https://github.com/alexandrelam/blame-detective/network/members
+[stars-shield]: https://img.shields.io/github/stars/alexandrelam/blame-detective.svg?style=for-the-badge
+[stars-url]: https://github.com/alexandrelam/blame-detective/stargazers
+[issues-shield]: https://img.shields.io/github/issues/alexandrelam/blame-detective.svg?style=for-the-badge
+[issues-url]: https://github.com/alexandrelam/blame-detective/issues
+[license-shield]: https://img.shields.io/github/license/alexandrelam/blame-detective.svg?style=for-the-badge
+[license-url]: https://github.com/alexandrelam/blame-detective/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/alexandre-lam-74787b191/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
