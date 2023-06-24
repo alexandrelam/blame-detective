@@ -182,10 +182,7 @@ Refine your bug tracking efforts by excluding irrelevant files or narrowing down
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
+- [ ] CI / CD
 
 See the [open issues](https://github.com/alexandrelam/blame-detective/issues) for a full list of proposed features (and known issues).
 
