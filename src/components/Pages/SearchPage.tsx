@@ -6,10 +6,10 @@ import { useState } from "react";
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import { extractGitDiffLines } from "../../utils/extractGitDiffLines";
 import { BobLoader } from "../BobLoader";
+import { SearchForm } from "../SearchForm";
 
 export function SearchPage() {
-  const { makeSearch, isLoading, modifiedFiles, searchedFiles, refineSearch } =
-    useSearch();
+  const { makeSearch, isLoading, modifiedFiles, searchedFiles } = useSearch();
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
 
   const selectedFile = modifiedFiles.find(
@@ -37,34 +37,7 @@ export function SearchPage() {
           )}
         </div>
         <div className="flex flex-col gap-2 flex-grow h-full-custom overflow-y-scroll">
-          <form className="flex items-center join" onSubmit={makeSearch}>
-            <input
-              id="filepath"
-              name="filepath"
-              type="text"
-              placeholder="/^regex\/path$/i"
-              className="input input-bordered flex-grow join-item"
-              onChange={refineSearch}
-              disabled={modifiedFiles.length === 0}
-            />
-            <input
-              id="start_date"
-              name="start_date"
-              type="date"
-              required
-              className="input input-bordered join-item"
-            />
-            <input
-              id="end_date"
-              name="end_date"
-              type="date"
-              required
-              className="input input-bordered join-item"
-            />
-            <button className="btn btn-primary join-item" type="submit">
-              Search
-            </button>
-          </form>
+          <SearchForm makeSearch={makeSearch} modifiedFiles={modifiedFiles} />
           <div>
             {isLoading && <BobLoader />}
             {!!selectedFile && !isLoading && (

@@ -1,15 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModifiedFile } from "../types";
 import { fetchModifiedFiles, getDatesFromRange } from "../utils/search";
 import { findByDateModifiedFile } from "../db/actions/findByDateModifiedFile";
 import { createModifiedFile } from "../db/actions/createModifiedFile";
 import { findByRangeDateModifiedFile } from "../db/actions/findByRangeDateModifiedFile";
+import { SearchContext } from "../App";
+import { useTypedContext } from "./useTypedContext";
+
+function escapeRegExp(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // Escape special characters
+}
 
 export function useSearch() {
   const [modifiedFiles, setModifiedFiles] = useState<ModifiedFile[]>([]);
   const [searchedFiles, setSearchedFiles] = useState<ModifiedFile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+
+  const { searchQuery, searchFile, excludeFile } =
+    useTypedContext(SearchContext);
+
+  useEffect(() => {
+    refineSearch();
+  }, [searchFile, excludeFile, searchQuery]);
+
+  function refineSearch() {
+    let refinedSearch: ModifiedFile[] = modifiedFiles;
+
+    if (searchFile) {
+      const regex = new RegExp(escapeRegExp(searchFile), "i"); // 'i' flag for case-insensitive matching
+      refinedSearch = refinedSearch.filter((file) => regex.test(file.filename));
+    }
+
+    if (excludeFile) {
+      const regex = new RegExp(escapeRegExp(excludeFile), "i"); // 'i' flag for case-insensitive matching
+      refinedSearch = refinedSearch.filter(
+        (file) => !regex.test(file.filename)
+      );
+    }
+
+    if (searchQuery) {
+      const regex = new RegExp(escapeRegExp(searchQuery), "i"); // 'i' flag for case-insensitive matching
+      refinedSearch = refinedSearch.filter(
+        (file) => !!file.patch && regex.test(file.patch)
+      );
+    }
+
+    setSearchedFiles(refinedSearch);
+  }
 
   async function makeSearch(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -65,12 +103,6 @@ export function useSearch() {
 
     setModifiedFiles(files);
     setIsLoading(false);
-  }
-
-  function refineSearch(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    const regex = new RegExp(value, "i"); // 'i' flag for case-insensitive matching
-    setSearchedFiles(modifiedFiles.filter((file) => regex.test(file.filename)));
   }
 
   return {

@@ -1,12 +1,8 @@
-import { useContext } from "react";
 import { TabContext } from "../App";
+import { useTypedContext } from "../hooks/useTypedContext";
 
 export function SettingsMissingBanner() {
-  const tabContext = useContext(TabContext);
-
-  if (!tabContext) {
-    return null;
-  }
+  const tabContext = useTypedContext(TabContext);
 
   if (tabContext.tab === "settings") {
     return null;
