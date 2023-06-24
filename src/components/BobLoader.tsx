@@ -7,7 +7,7 @@ export function BobLoader() {
         className="m-auto"
       />
       <h2 className="text-2xl mt-4 text-secondary font-bold">
-        Loading, Bob is fetching data...
+        Bob is looking for your files...
       </h2>
     </div>
   );
