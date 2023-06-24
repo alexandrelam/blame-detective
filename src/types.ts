@@ -47,3 +47,10 @@ export type TreeProps = {
   selectedFilename: string | null;
   setSelectedFilename: React.Dispatch<React.SetStateAction<string | null>>;
 };
+
+export type GithubAPIRate = {
+  limit: number;
+  remaining: number;
+  reset: number;
+  used: number;
+};
