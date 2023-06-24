@@ -76,7 +76,7 @@ export function SearchPage() {
                     className="w-6 h-6 rounded-full inline-block mr-2"
                   />
                   <a
-                    className="link-neutral text-sm"
+                    className="link-primary-content text-sm"
                     href={selectedFile.author_html_url}
                   >
                     {selectedFile.author_login}
@@ -84,7 +84,7 @@ export function SearchPage() {
                 </div>
                 <div>
                   <a
-                    className="link text-sm text-neutral"
+                    className="link text-sm text-primary-content"
                     target="_blank"
                     href={selectedFile.html_url}
                   >

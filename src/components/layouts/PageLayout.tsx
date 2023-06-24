@@ -20,7 +20,7 @@ export function PageLayout({
       <div className="flex items-baseline gap-2">
         <h2 className="font-bold text-xl text-secondary">{title}</h2>
         {!!owner && !!repo && (
-          <h3 className="text-neutral font-medium">
+          <h3 className="text-base-content font-medium">
             {owner}/{repo}
           </h3>
         )}
