@@ -77,9 +77,7 @@
 
 ## About The Project
 
-<video>
-    <source src="public/cover.webm" type="video/webm">
-</video>
+[cover.webm](https://github.com/alexandrelam/blame-detective/assets/25727549/10a217db-7ca7-4b51-8f2c-58bc18c80f1d)
 
 Blame Detective is a highly efficient and user-friendly application designed to streamline the process of bug tracking and debugging in software development projects. By leveraging its powerful features, Blame Detective empowers developers to identify and resolve bugs quickly and effectively, saving valuable time and resources.
 
