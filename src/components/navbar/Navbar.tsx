@@ -13,7 +13,7 @@ export function NavBar({ tab, setTab }: Props) {
         onClick={() => setTab("search")}
       >
         <img
-          src="public/detective.png"
+          src="detective.png"
           alt="moving detective microsft emoji"
           className="w-12 h-12"
         />
