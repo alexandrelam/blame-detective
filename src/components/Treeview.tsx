@@ -33,7 +33,7 @@ function TreeNodeComponent({
   if (!node.children) {
     return (
       <button
-        className={`${
+        className={`block ${
           selectedFilename === node.fullPath
             ? "text-primary font-medium"
             : "text-secondary"
