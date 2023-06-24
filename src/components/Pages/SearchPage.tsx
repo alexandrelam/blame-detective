@@ -5,6 +5,7 @@ import { buildTree } from "../../utils/tree";
 import { useState } from "react";
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import { extractGitDiffLines } from "../../utils/extractGitDiffLines";
+import { BobLoader } from "../BobLoader";
 
 export function SearchPage() {
   const { makeSearch, isLoading, modifiedFiles, searchedFiles, refineSearch } =
@@ -65,18 +66,7 @@ export function SearchPage() {
             </button>
           </form>
           <div>
-            {isLoading && (
-              <div className="flex flex-col items-center mt-24">
-                <img
-                  src="/src/assets/sponge-bob-looking.gif"
-                  alt="loading gif"
-                  className="m-auto"
-                />
-                <h2 className="text-2xl mt-4 text-secondary font-bold">
-                  Loading, Bob is fetching data...
-                </h2>
-              </div>
-            )}
+            {isLoading && <BobLoader />}
             {!!selectedFile && !isLoading && (
               <div className="p-2 rounded-xl bg-secondary/20 flex justify-between items-center mb-2">
                 <div className="flex items-center">

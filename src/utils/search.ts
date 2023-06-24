@@ -1,5 +1,4 @@
-import { ModifiedFile } from "@prisma/client";
-import { GithubCommitResponse } from "../../types";
+import { GithubCommitResponse, ModifiedFile } from "../../types";
 
 export function getDatesFromRange(start_date: Date, end_date: Date): Date[] {
   const dates: Date[] = [];
@@ -16,7 +15,7 @@ export async function fetchModifiedFiles(
   repo: string,
   date: string,
   accessToken: string
-): Promise<Omit<ModifiedFile, "id" | "createdAt" | "updatedAt">[]> {
+): Promise<Omit<ModifiedFile, "id">[]> {
   const searchCommitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits`;
   const searchCommitsParams = new URLSearchParams({
     since: `${date}T00:00:00Z`,
@@ -34,7 +33,7 @@ export async function fetchModifiedFiles(
     searchCommitsOptions
   );
   const commitsData = await commitsResponse.json();
-  const files: Omit<ModifiedFile, "id" | "createdAt" | "updatedAt">[] = [];
+  const files: Omit<ModifiedFile, "id">[] = [];
   for (const commit of commitsData) {
     const commitUrl = commit.url;
     const commitOptions = {

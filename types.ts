@@ -32,8 +32,6 @@ export type ModifiedFile = {
   additions: number;
   deletions: number;
   patch: string | null;
-  createdAt: Date;
-  updatedAt: Date;
 };
 
 export type TreeNode = {
