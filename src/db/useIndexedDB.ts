@@ -4,6 +4,8 @@ let request: IDBOpenDBRequest;
 let db: IDBDatabase;
 let version = 1;
 
+export const DB_NAME = "myDB";
+
 export enum Stores {
   ModifiedFile = "modifiedFiles",
 }
@@ -13,7 +15,7 @@ export function useIndexedDB() {
 
   const initDB = () => {
     // open the connection
-    request = indexedDB.open("myDB");
+    request = indexedDB.open(DB_NAME);
 
     request.onupgradeneeded = (event) => {
       const db = (event.target as IDBOpenDBRequest).result;
@@ -21,7 +23,10 @@ export function useIndexedDB() {
       // if the data object store doesn't exist, create it
       if (!db.objectStoreNames.contains(Stores.ModifiedFile)) {
         console.log("Creating object store");
-        db.createObjectStore(Stores.ModifiedFile, { keyPath: "id" });
+        const objectStore = db.createObjectStore(Stores.ModifiedFile, {
+          keyPath: "id",
+        });
+        objectStore.createIndex("date", "date", { unique: false });
       }
     };
 
