@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ModifiedFile } from "../../types";
+import { ModifiedFile } from "../types";
 import { fetchModifiedFiles, getDatesFromRange } from "../utils/search";
 import { findByDateModifiedFile } from "../db/actions/findByDateModifiedFile";
 import { createModifiedFile } from "../db/actions/createModifiedFile";

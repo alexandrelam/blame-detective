@@ -1,4 +1,4 @@
-import { TreeNode, TreeProps } from "../../types";
+import { TreeNode, TreeProps } from "../types";
 import { IFolder } from "./icons/IFolder";
 
 export function TreeView({

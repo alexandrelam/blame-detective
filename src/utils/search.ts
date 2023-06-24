@@ -1,4 +1,4 @@
-import { GithubCommitResponse, ModifiedFile } from "../../types";
+import { GithubCommitResponse, ModifiedFile } from "../types";
 
 export function getDatesFromRange(start_date: Date, end_date: Date): Date[] {
   const dates: Date[] = [];

@@ -1,4 +1,4 @@
-import { TreeNode } from "../../types";
+import { TreeNode } from "../types";
 
 export function buildTree(paths: string[]): TreeNode {
   const root: TreeNode = { name: "", fullPath: "" };

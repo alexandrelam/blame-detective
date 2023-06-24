@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { ModifiedFile } from "../../../types";
+import { ModifiedFile } from "../../types";
 import { DB_NAME, Stores } from "../useIndexedDB";
 
 export function createModifiedFile(
