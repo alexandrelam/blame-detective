@@ -3,8 +3,8 @@ import { DB_NAME, Stores } from "../useIndexedDB";
 
 export function findByDateModifiedFile(
   date: Date,
-  repo: string,
-  owner: string
+  owner: string,
+  repo: string
 ): Promise<ModifiedFile[]> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, 1);
