@@ -7,10 +7,6 @@ import { findByRangeDateModifiedFile } from "../db/actions/findByRangeDateModifi
 import { SearchContext } from "../App";
 import { useTypedContext } from "./useTypedContext";
 
-function escapeRegExp(s: string) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // Escape special characters
-}
-
 export function useSearch() {
   const [modifiedFiles, setModifiedFiles] = useState<ModifiedFile[]>([]);
   const [searchedFiles, setSearchedFiles] = useState<ModifiedFile[]>([]);
@@ -21,32 +17,39 @@ export function useSearch() {
     useTypedContext(SearchContext);
 
   useEffect(() => {
-    refineSearch();
+    (async () => {
+      const refinedSearch = await refineSearch();
+      setSearchedFiles(refinedSearch);
+    })();
   }, [searchFile, excludeFile, searchQuery]);
 
-  function refineSearch() {
-    let refinedSearch: ModifiedFile[] = modifiedFiles;
+  function refineSearch(): Promise<ModifiedFile[]> {
+    return new Promise((resolve) => {
+      let refinedSearch: ModifiedFile[] = modifiedFiles;
 
-    if (searchFile) {
-      const regex = new RegExp(escapeRegExp(searchFile), "i"); // 'i' flag for case-insensitive matching
-      refinedSearch = refinedSearch.filter((file) => regex.test(file.filename));
-    }
+      if (searchFile) {
+        const regex = new RegExp(searchFile, "i"); // 'i' flag for case-insensitive matching
+        refinedSearch = refinedSearch.filter((file) =>
+          regex.test(file.filename)
+        );
+      }
 
-    if (excludeFile) {
-      const regex = new RegExp(escapeRegExp(excludeFile), "i"); // 'i' flag for case-insensitive matching
-      refinedSearch = refinedSearch.filter(
-        (file) => !regex.test(file.filename)
-      );
-    }
+      if (excludeFile) {
+        const regex = new RegExp(excludeFile, "i"); // 'i' flag for case-insensitive matching
+        refinedSearch = refinedSearch.filter(
+          (file) => !regex.test(file.filename)
+        );
+      }
 
-    if (searchQuery) {
-      const regex = new RegExp(escapeRegExp(searchQuery), "i"); // 'i' flag for case-insensitive matching
-      refinedSearch = refinedSearch.filter(
-        (file) => !!file.patch && regex.test(file.patch)
-      );
-    }
+      if (searchQuery) {
+        const regex = new RegExp(searchQuery, "i"); // 'i' flag for case-insensitive matching
+        refinedSearch = refinedSearch.filter(
+          (file) => !!file.patch && regex.test(file.patch)
+        );
+      }
 
-    setSearchedFiles(refinedSearch);
+      resolve(refinedSearch);
+    });
   }
 
   async function makeSearch(e: React.FormEvent<HTMLFormElement>) {
