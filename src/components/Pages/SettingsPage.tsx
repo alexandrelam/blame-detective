@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { PageLayout } from "../layouts/PageLayout";
 import { useGithubStats } from "../../utils/useGithubStats";
-import { spawn } from "child_process";
 
 export function SettingsPage() {
   const [owner, setOwner] = useState("");
   const [repo, setRepo] = useState("");
   const [githubToken, setGithubToken] = useState("");
 
-  const { data, fetchGithubStats, isLoading } = useGithubStats();
+  const { data, fetchGithubStats } = useGithubStats();
 
   useEffect(() => {
     const savedOwner = localStorage.getItem("owner");
