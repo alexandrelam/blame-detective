@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/alexandrelam/blame-detective">
-    <img src="blame-detective/public/detective.png" alt="Logo" width="80" height="80">
+    <img src="public/detective.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">B<i>lame</i> Detective</h3>
@@ -77,7 +77,7 @@
 
 ## About The Project
 
-<img src="blame-detective/public/cover.png" alt="cover">
+<img src="public/cover.png" alt="cover">
 
 Blame Detective is a highly efficient and user-friendly application designed to streamline the process of bug tracking and debugging in software development projects. By leveraging its powerful features, Blame Detective empowers developers to identify and resolve bugs quickly and effectively, saving valuable time and resources.
 

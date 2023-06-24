@@ -2,7 +2,7 @@ export function BobLoader() {
   return (
     <div className="flex flex-col items-center mt-24">
       <img
-        src="blame-detective/public/sponge-bob-looking.gif"
+        src="public/sponge-bob-looking.gif"
         alt="loading gif"
         className="m-auto"
       />
