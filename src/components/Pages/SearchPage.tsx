@@ -95,8 +95,8 @@ export function SearchPage() {
             )}
             <div className="flex-grow text-xs leading-none! rounded-xl overflow-hidden">
               <ReactDiffViewer
-                oldValue={addedLines}
-                newValue={removedLines}
+                oldValue={removedLines}
+                newValue={addedLines}
                 splitView={false}
                 compareMethod={DiffMethod.WORDS}
               />
