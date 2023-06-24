@@ -11,7 +11,7 @@ export function PageLayout({
   const repo = localStorage.getItem("repo");
 
   return (
-    <div className="py-8 flex flex-col flex-grow">
+    <div className="pt-8 flex flex-col h-full-custom">
       {(!owner || !repo) && (
         <div className="mb-4">
           <SettingsMissingBanner />
@@ -25,7 +25,7 @@ export function PageLayout({
           </h3>
         )}
       </div>
-      <div className="py-4 flex-grow">{children}</div>
+      <div className="py-4 h-full-custom">{children}</div>
     </div>
   );
 }

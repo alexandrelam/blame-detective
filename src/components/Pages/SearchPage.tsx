@@ -26,8 +26,8 @@ export function SearchPage() {
 
   return (
     <PageLayout title="Search">
-      <div className="flex gap-2 h-full">
-        <div className="w-96 border-r">
+      <div className="flex gap-2 h-full-custom">
+        <div className="w-96 border-r overflow-y-scroll">
           {!isLoading && (
             <Tree
               tree={tree}
@@ -36,7 +36,7 @@ export function SearchPage() {
             />
           )}
         </div>
-        <div className="flex flex-col gap-2 flex-grow">
+        <div className="flex flex-col gap-2 flex-grow h-full-custom overflow-y-scroll">
           <form className="flex items-center join" onSubmit={makeSearch}>
             <input
               id="filepath"

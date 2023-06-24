@@ -6,3 +6,9 @@
   line-height: 1.5 !important;
 }
 
+@layer components {
+  .h-full-custom {
+    height: calc(100% - 3.5rem);
+  }
+}
+
