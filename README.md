@@ -25,16 +25,15 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+  <img src="https://github.com/alexandrelam/blame-detective/assets/25727549/79fa934c-66a9-4f62-a277-01a02fc2bd44" alt="Logo" height="35">
 
-<!-- PROJECT LOGO -->
-<br />
+<!-- PROJECT LOGO --35<br />
 <div align="center">
   <a href="https://github.com/alexandrelam/blame-detective">
     <img src="public/detective.png" alt="Logo" width="120" height="120">
   </a>
 
 <h3 align="center">B<i>lame</i> Detective</h3>
-
   <p align="center">
     Empowering Developers to Track and Expose Code Alterations! 🕵️
     <br />
@@ -45,6 +44,9 @@
     ·
     <a href="https://github.com/alexandrelam/blame-detective/issues">Request Feature</a>
   </p>
+
+
+
 </div>
 
 <!-- TABLE OF CONTENTS -->
