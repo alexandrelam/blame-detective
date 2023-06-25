@@ -1,7 +1,7 @@
-import { SearchContext } from "../App";
 import { ModifiedFile } from "../types";
 import { useTypedContext } from "../hooks/useTypedContext";
 import { useState } from "react";
+import { SearchContext } from "../Context/SearchContext";
 
 type Props = {
   makeSearch: (event: React.FormEvent<HTMLFormElement>) => void;

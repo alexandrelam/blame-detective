@@ -1,4 +1,4 @@
-import { TabContext } from "../App";
+import { TabContext } from "../Context/TabContext";
 import { useTypedContext } from "../hooks/useTypedContext";
 
 export function SettingsMissingBanner() {
