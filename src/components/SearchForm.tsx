@@ -1,6 +1,7 @@
 import { SearchContext } from "../App";
 import { ModifiedFile } from "../types";
 import { useTypedContext } from "../hooks/useTypedContext";
+import { useState } from "react";
 
 type Props = {
   makeSearch: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -10,6 +11,15 @@ type Props = {
 export function SearchForm({ makeSearch, modifiedFiles }: Props) {
   const { setSearchQuery, setSearchFile, setExcludeFile } =
     useTypedContext(SearchContext);
+
+  const [startDate, setStartDate] = useState("");
+
+  const handleStartDateChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const selectedDate = event.target.value;
+    setStartDate(selectedDate);
+  };
 
   return (
     <form className="flex items-center join" onSubmit={makeSearch}>
@@ -73,6 +83,8 @@ export function SearchForm({ makeSearch, modifiedFiles }: Props) {
         type="date"
         required
         className="input input-bordered join-item"
+        value={startDate}
+        onChange={handleStartDateChange}
       />
       <input
         id="end_date"
@@ -80,6 +92,8 @@ export function SearchForm({ makeSearch, modifiedFiles }: Props) {
         type="date"
         required
         className="input input-bordered join-item"
+        min={startDate}
+        disabled={!startDate}
       />
       <button className="btn btn-primary join-item" type="submit">
         Search
