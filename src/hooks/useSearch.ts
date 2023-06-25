@@ -4,8 +4,8 @@ import { fetchModifiedFiles, getDatesFromRange } from "../utils/search";
 import { findByDateModifiedFile } from "../db/actions/findByDateModifiedFile";
 import { createModifiedFile } from "../db/actions/createModifiedFile";
 import { findByRangeDateModifiedFile } from "../db/actions/findByRangeDateModifiedFile";
-import { SearchContext } from "../App";
 import { useTypedContext } from "./useTypedContext";
+import { SearchContext } from "../Context/SearchContext";
 
 export function useSearch() {
   const [modifiedFiles, setModifiedFiles] = useState<ModifiedFile[]>([]);
