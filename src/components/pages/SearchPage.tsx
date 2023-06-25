@@ -7,10 +7,14 @@ import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import { extractGitDiffLines } from "../../utils/extractGitDiffLines";
 import { BobLoader } from "../BobLoader";
 import { SearchForm } from "../SearchForm";
+import { findLineNumber } from "../../utils/highlightInSearch";
+import { useTypedContext } from "../../hooks/useTypedContext";
+import { SearchContext } from "../../Context/SearchContext";
 
 export function SearchPage() {
   const { makeSearch, isLoading, modifiedFiles, searchedFiles } = useSearch();
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
+  const { searchQuery } = useTypedContext(SearchContext);
 
   const selectedFile = modifiedFiles.find(
     (file) => file.filename === selectedFilename
@@ -18,6 +22,18 @@ export function SearchPage() {
 
   const { addedLines, removedLines } = extractGitDiffLines(
     selectedFile?.patch || ""
+  );
+
+  const highlightAddedLines = findLineNumber(
+    "addedLines",
+    addedLines,
+    searchQuery
+  );
+
+  const highlightRemovedLines = findLineNumber(
+    "removedLines",
+    removedLines,
+    searchQuery
   );
 
   const files = searchedFiles.length ? searchedFiles : modifiedFiles;
@@ -71,8 +87,11 @@ export function SearchPage() {
                 <ReactDiffViewer
                   oldValue={removedLines}
                   newValue={addedLines}
-                  splitView={false}
                   compareMethod={DiffMethod.WORDS}
+                  highlightLines={[
+                    ...highlightAddedLines,
+                    ...highlightRemovedLines,
+                  ]}
                 />
               )}
             </div>
