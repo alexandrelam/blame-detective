@@ -30,7 +30,7 @@ export function ThemePicker() {
       <label htmlFor="themeSelect">Select a theme:</label>
       <select
         id="themeSelect"
-        className="input input-bordered"
+        className="input input-bordered join-item"
         value={selectedTheme}
         onChange={handleThemeChange}
       >
