@@ -21,6 +21,12 @@ export function SearchForm({ makeSearch, modifiedFiles }: Props) {
     setStartDate(selectedDate);
   };
 
+  const owner = localStorage.getItem("owner");
+  const repo = localStorage.getItem("repo");
+  const token = localStorage.getItem("githubToken");
+
+  const isSettingsMissing = !owner || !repo || !token;
+
   return (
     <form className="flex items-center join" onSubmit={makeSearch}>
       <input
@@ -85,6 +91,7 @@ export function SearchForm({ makeSearch, modifiedFiles }: Props) {
         className="input input-bordered join-item"
         value={startDate}
         onChange={handleStartDateChange}
+        disabled={isSettingsMissing}
       />
       <input
         id="end_date"
@@ -95,7 +102,11 @@ export function SearchForm({ makeSearch, modifiedFiles }: Props) {
         min={startDate}
         disabled={!startDate}
       />
-      <button className="btn btn-primary join-item" type="submit">
+      <button
+        className="btn btn-primary join-item"
+        type="submit"
+        disabled={isSettingsMissing}
+      >
         Search
       </button>
     </form>
