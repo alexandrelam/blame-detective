@@ -9,10 +9,11 @@ export function PageLayout({
 }) {
   const owner = localStorage.getItem("owner");
   const repo = localStorage.getItem("repo");
+  const token = localStorage.getItem("githubToken");
 
   return (
     <div className="pt-8 flex flex-col h-full-custom">
-      {(!owner || !repo) && (
+      {(!owner || !repo || !token) && (
         <div className="mb-4">
           <SettingsMissingBanner />
         </div>

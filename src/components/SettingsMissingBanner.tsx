@@ -24,8 +24,8 @@ export function SettingsMissingBanner() {
         />
       </svg>
       <span>
-        Warning: Invalid "owner" and "repo". Please configure the app in
-        the&nbsp;
+        Warning: Invalid "owner", "repo" and "github token". Please configure
+        the app in the&nbsp;
         <a onClick={() => tabContext.setTab("settings")} className="link">
           config page.
         </a>

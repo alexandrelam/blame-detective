@@ -26,6 +26,7 @@ export function SettingsPage() {
       setGithubToken(savedToken);
       fetchGithubStats(savedToken);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [githubToken]);
 
   const handleOwnerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,35 +54,54 @@ export function SettingsPage() {
           <label htmlFor="ownerInput" className="font-medium">
             Owner:
           </label>
-          <input
-            id="ownerInput"
-            type="text"
-            value={owner}
-            onChange={handleOwnerChange}
-            className="border rounded-md p-2"
-          />
+          <div className="flex flex-col gap-1">
+            <input
+              id="ownerInput"
+              type="text"
+              value={owner}
+              onChange={handleOwnerChange}
+              className={`border rounded-md p-2 ${!owner && "input-error"}`}
+            />
+            {!owner && (
+              <span className="text-xs text-error">Owner is missing</span>
+            )}
+          </div>
 
           <label htmlFor="repoInput" className="font-medium">
             Repo:
           </label>
-          <input
-            id="repoInput"
-            type="text"
-            value={repo}
-            onChange={handleRepoChange}
-            className="border rounded-md p-2"
-          />
+          <div className="flex flex-col gap-1">
+            <input
+              id="repoInput"
+              type="text"
+              value={repo}
+              onChange={handleRepoChange}
+              className={`border rounded-md p-2 ${!repo && "input-error"}`}
+            />
+            {!repo && (
+              <span className="text-xs text-error">Repo is missing</span>
+            )}
+          </div>
 
           <label htmlFor="tokenInput" className="font-medium">
-            GitHub Token (optional):
+            GitHub Token:
           </label>
-          <input
-            id="tokenInput"
-            type="text"
-            value={githubToken}
-            onChange={handleTokenChange}
-            className="border rounded-md p-2"
-          />
+          <div className="flex flex-col gap-1">
+            <input
+              id="tokenInput"
+              type="text"
+              value={githubToken}
+              onChange={handleTokenChange}
+              className={`border rounded-md p-2 ${
+                !githubToken && "input-error"
+              }`}
+            />
+            {!githubToken && (
+              <span className="text-xs text-error">
+                Github token is missing
+              </span>
+            )}
+          </div>
         </div>
         <div>
           <h2 className="mt-4 font-bold text-xl text-secondary">
