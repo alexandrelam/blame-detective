@@ -77,24 +77,27 @@ export function useSearch() {
     for (const date of dates) {
       const entries = await findByDateModifiedFile(date, owner, repo);
 
-      if (entries.length >= 1) {
-        console.log("fetch db");
-      } else {
-        console.log("fetch api");
-        const modifiedFiles = await fetchModifiedFiles(
-          owner,
-          repo,
-          date.toISOString(),
-          token?.toString() || ""
-        );
+      if (entries.length < 1) {
+        try {
+          const modifiedFiles = await fetchModifiedFiles(
+            owner,
+            repo,
+            date.toISOString(),
+            token?.toString() || ""
+          );
 
-        if (!modifiedFiles) {
+          if (!modifiedFiles) {
+            throw new Error("No modified files found");
+          }
+
+          for (const file of modifiedFiles) {
+            await createModifiedFile(file);
+          }
+        } catch (error) {
           setIsError(true);
+          setIsLoading(false);
+          console.log(error);
           return;
-        }
-
-        for (const file of modifiedFiles) {
-          await createModifiedFile(file);
         }
       }
     }

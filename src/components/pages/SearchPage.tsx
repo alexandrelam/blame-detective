@@ -10,9 +10,11 @@ import { SearchForm } from "../SearchForm";
 import { findLineNumber } from "../../utils/highlightInSearch";
 import { useTypedContext } from "../../hooks/useTypedContext";
 import { SearchContext } from "../../Context/SearchContext";
+import { ErrorBanner } from "../ErrorBanner";
 
 export function SearchPage() {
-  const { makeSearch, isLoading, modifiedFiles, searchedFiles } = useSearch();
+  const { makeSearch, isError, isLoading, modifiedFiles, searchedFiles } =
+    useSearch();
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
   const { searchQuery } = useTypedContext(SearchContext);
 
@@ -55,7 +57,8 @@ export function SearchPage() {
         <div className="flex flex-col gap-2 flex-1 h-full-custom overflow-y-scroll">
           <SearchForm makeSearch={makeSearch} modifiedFiles={modifiedFiles} />
           <div>
-            {isLoading && <BobLoader />}
+            {isLoading && !isError && <BobLoader />}
+            {isError && <ErrorBanner />}
             {!!selectedFile && !isLoading && (
               <div className="p-2 rounded-xl bg-secondary/20 flex justify-between items-center mb-2">
                 <div className="flex items-center">
