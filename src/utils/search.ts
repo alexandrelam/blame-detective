@@ -28,13 +28,47 @@ export async function fetchModifiedFiles(
       Accept: "application/vnd.github.v3+json",
     },
   };
-  const commitsResponse = await fetch(
+  const commitsDatas = [];
+
+  let commitsResponse = await fetch(
     `${searchCommitsUrl}?${searchCommitsParams}`,
     searchCommitsOptions
   );
-  const commitsData = await commitsResponse.json();
+  let commitsData = await commitsResponse.json();
+  commitsDatas.push(...commitsData);
+
+  for (;;) {
+    const link = commitsResponse.headers.get("link");
+    if (!link) break;
+
+    const nextLink = link
+      .split(",")
+      .find((link) => link.includes('rel="next"'));
+    if (!nextLink) break;
+
+    const nextLinkUrl = nextLink.split(";")[0].slice(1, -1);
+
+    const nextLinkParams = new URLSearchParams(nextLinkUrl.split("?")[1]);
+    searchCommitsParams.set("page", nextLinkParams.get("page") || "");
+
+    if (!nextLinkParams.get("page")) break;
+
+    try {
+      commitsResponse = await fetch(
+        `${searchCommitsUrl}?${searchCommitsParams}`,
+        searchCommitsOptions
+      );
+
+      commitsData = await commitsResponse.json();
+      commitsDatas.push(...commitsData);
+    } catch (error) {
+      console.error(error);
+      break;
+    }
+  }
+
   const files: Omit<ModifiedFile, "id">[] = [];
-  for (const commit of commitsData) {
+  for (const commit of commitsDatas) {
     const commitUrl = commit.url;
     const commitOptions = {
       headers: {
