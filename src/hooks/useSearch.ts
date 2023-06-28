@@ -21,6 +21,7 @@ export function useSearch() {
       const refinedSearch = await refineSearch();
       setSearchedFiles(refinedSearch);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchFile, excludeFile, searchQuery]);
 
   function refineSearch(): Promise<ModifiedFile[]> {
