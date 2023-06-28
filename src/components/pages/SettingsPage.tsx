@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PageLayout } from "../layouts/PageLayout";
 import { useGithubStats } from "../../utils/useGithubStats";
+import { formatUnixTimestamp } from "../../utils/formatUnixTimestamp";
 
 export function SettingsPage() {
   const [owner, setOwner] = useState("");
@@ -142,7 +143,7 @@ export function SettingsPage() {
                   <td className="py-2">{data.limit}</td>
                   <td className="py-2">{data.used}</td>
                   <td className="py-2">{data.remaining}</td>
-                  <td className="py-2">{data.reset}</td>
+                  <td className="py-2">{formatUnixTimestamp(data.reset)}</td>
                 </tr>
               </tbody>
             </table>
