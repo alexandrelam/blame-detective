@@ -6,6 +6,7 @@ import { useIndexedDB } from "./db/useIndexedDB";
 import { TabContextProvider } from "./Context/TabContext";
 import { SearchContextProvider } from "./Context/SearchContext";
 import { useState } from "react";
+import { FetchContextProvider } from "./Context/FetchContext";
 
 function App() {
   const { isDBReady } = useIndexedDB();
@@ -19,8 +20,10 @@ function App() {
     <GlobalLayout>
       <TabContextProvider tab={tab} setTab={setTab}>
         <SearchContextProvider>
-          <NavBar tab={tab} setTab={setTab} />
-          {tab === "search" ? <SearchPage /> : <SettingsPage />}
+          <FetchContextProvider>
+            <NavBar tab={tab} setTab={setTab} />
+            {tab === "search" ? <SearchPage /> : <SettingsPage />}
+          </FetchContextProvider>
         </SearchContextProvider>
       </TabContextProvider>
     </GlobalLayout>
