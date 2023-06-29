@@ -11,12 +11,15 @@ import { findLineNumber } from "../../utils/highlightInSearch";
 import { useTypedContext } from "../../hooks/useTypedContext";
 import { SearchContext } from "../../Context/SearchContext";
 import { ErrorBanner } from "../ErrorBanner";
+import { FetchContext } from "../../Context/FetchContext";
 
 export function SearchPage() {
   const { makeSearch, isError, isLoading, modifiedFiles, searchedFiles } =
     useSearch();
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
   const { searchQuery } = useTypedContext(SearchContext);
+  const { totalCommitsToFetch, totalCommitsFetched } =
+    useTypedContext(FetchContext);
 
   const selectedFile = modifiedFiles.find(
     (file) => file.filename === selectedFilename
@@ -57,6 +60,18 @@ export function SearchPage() {
         <div className="flex flex-col gap-2 flex-1 h-full-custom overflow-y-scroll">
           <SearchForm makeSearch={makeSearch} modifiedFiles={modifiedFiles} />
           <div>
+            {totalCommitsFetched !== totalCommitsToFetch && (
+              <>
+                <span className="text-accent">
+                  Fetching: {totalCommitsFetched} / {totalCommitsToFetch}
+                </span>
+                <progress
+                  className="progress progress-accent w-[99%]"
+                  value={(totalCommitsFetched / totalCommitsToFetch) * 100}
+                  max="100"
+                ></progress>
+              </>
+            )}
             {isLoading && !isError && <BobLoader />}
             {isError && <ErrorBanner />}
             {!!selectedFile && !isLoading && (

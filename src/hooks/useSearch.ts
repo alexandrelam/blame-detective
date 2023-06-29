@@ -1,20 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ModifiedFile } from "../types";
-import { fetchModifiedFiles, getDatesFromRange } from "../utils/search";
+import {
+  getDatesFromRange,
+  useFetchModifiedFiles,
+} from "./useFetchModifiedFiles";
 import { findByDateModifiedFile } from "../db/actions/findByDateModifiedFile";
-import { createModifiedFile } from "../db/actions/createModifiedFile";
-import { findByRangeDateModifiedFile } from "../db/actions/findByRangeDateModifiedFile";
 import { useTypedContext } from "./useTypedContext";
 import { SearchContext } from "../Context/SearchContext";
+import { FetchContext } from "../Context/FetchContext";
+import { findByRangeDateModifiedFile } from "../db/actions/findByRangeDateModifiedFile";
 
 export function useSearch() {
-  const [modifiedFiles, setModifiedFiles] = useState<ModifiedFile[]>([]);
-  const [searchedFiles, setSearchedFiles] = useState<ModifiedFile[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const {
+    modifiedFiles,
+    setModifiedFiles,
+    searchedFiles,
+    setSearchedFiles,
+    isLoading,
+    setIsLoading,
+    isError,
+    setIsError,
+    setTotalCommitsFetched,
+    setTotalCommitsToFetch,
+  } = useTypedContext(FetchContext);
 
   const { searchQuery, searchFile, excludeFile } =
     useTypedContext(SearchContext);
+
+  const { fetchModifiedFiles } = useFetchModifiedFiles();
 
   useEffect(() => {
     (async () => {
@@ -74,42 +87,36 @@ export function useSearch() {
       return;
     }
 
-    const dates = getDatesFromRange(new Date(start_date), new Date(end_date));
-    for (const date of dates) {
-      const entries = await findByDateModifiedFile(date, owner, repo);
+    try {
+      const dates = getDatesFromRange(new Date(start_date), new Date(end_date));
+      for (const date of dates) {
+        const entries = await findByDateModifiedFile(date, owner, repo);
 
-      if (entries.length < 1) {
-        try {
-          const modifiedFiles = await fetchModifiedFiles(
+        if (entries.length < 1) {
+          await fetchModifiedFiles(
             owner,
             repo,
             date.toISOString(),
             token?.toString() || ""
           );
+        } else {
+          const files = await findByRangeDateModifiedFile(
+            new Date(start_date),
+            new Date(end_date)
+          );
 
-          if (!modifiedFiles) {
-            throw new Error("No modified files found");
-          }
-
-          for (const file of modifiedFiles) {
-            await createModifiedFile(file);
-          }
-        } catch (error) {
-          setIsError(true);
+          setModifiedFiles(files);
           setIsLoading(false);
-          console.log(error);
-          return;
         }
       }
+    } catch (error) {
+      setIsError(true);
+      console.log(error);
     }
 
-    const files = await findByRangeDateModifiedFile(
-      new Date(start_date),
-      new Date(end_date)
-    );
-
-    setModifiedFiles(files);
     setIsLoading(false);
+    setTotalCommitsFetched(0);
+    setTotalCommitsToFetch(0);
   }
 
   return {
