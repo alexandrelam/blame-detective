@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PageLayout } from "../layouts/PageLayout";
 import { useGithubStats } from "../../utils/useGithubStats";
 import { formatUnixTimestamp } from "../../utils/formatUnixTimestamp";
+import { ClearCacheDB } from "../ClearCacheDB";
 
 export function SettingsPage() {
   const [owner, setOwner] = useState("");
@@ -129,7 +130,7 @@ export function SettingsPage() {
             </div>
           )}
           {!!data && (
-            <table className="table w-96 mt-8">
+            <table className="table w-96 mt-4">
               <thead>
                 <tr>
                   <th className="py-2">Limit</th>
@@ -148,6 +149,21 @@ export function SettingsPage() {
               </tbody>
             </table>
           )}
+        </div>
+        <div>
+          <h2 className="my-4 font-bold text-xl text-secondary">
+            Clear Cache DB
+          </h2>
+          <p className="text-secondary-content my-4 w-[40rem]">
+            When you first retrieve data, any modified files are cached in your
+            browser's IndexedDB. If there are files in the database for the
+            requested date, we will retrieve them from the cache instead of
+            fetching from Github. However, it's important to note that when you
+            fetch all the files that have been modified today, there might be
+            new files that were modified in the meantime. To ensure you can
+            retrieve these new files, you can clear the cache database.
+          </p>
+          <ClearCacheDB />
         </div>
       </>
     </PageLayout>
